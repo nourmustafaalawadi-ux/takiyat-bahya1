@@ -1,0 +1,7 @@
+/* تنسيقات التطبيق الرئيسية - تكية بهية */
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #F8F4EE;
+}

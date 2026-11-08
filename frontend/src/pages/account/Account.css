@@ -1,0 +1,209 @@
+
+.account-page {
+  min-height: 100vh;
+  padding: 35px 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F8F4EE;
+  color: #161719;
+  font-family: 'Cairo', Tahoma, sans-serif;
+}
+
+.account-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 35px;
+  background: #fff;
+  border: 1px solid #eee7dd;
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(22, 23, 25, 0.08);
+  text-align: center;
+}
+
+.account-logo {
+  width: 125px;
+  height: 125px;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #992B2B;
+  box-shadow: 0 4px 12px rgba(22, 23, 25, 0.12);
+}
+
+.account-card h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+
+.account-subtitle {
+  margin: 0;
+  color: #77716b;
+  font-size: 14px;
+}
+
+.account-divider {
+  width: 65px;
+  height: 3px;
+  margin: 22px auto;
+  border-radius: 5px;
+  background: #992B2B;
+}
+
+.account-info {
+  margin: 25px 0;
+  text-align: right;
+}
+
+.account-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee7dd;
+}
+
+.account-info-item span {
+  color: #77716b;
+  font-size: 14px;
+}
+
+.account-info-item strong {
+  color: #161719;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.account-logout {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #992B2B;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.account-logout:hover {
+  background: #7d2222;
+}
+
+.account-logout:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.account-back {
+  display: inline-block;
+  margin-top: 20px;
+  color: #992B2B;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.account-back:hover {
+  text-decoration: underline;
+}
+
+.account-footer {
+  margin: 28px 0 0;
+  color: #99918a;
+  font-size: 12px;
+}
+
+.account-error {
+  padding: 12px;
+  border-radius: 8px;
+  background: #fbe9e9;
+  color: #992B2B;
+  font-size: 14px;
+}
+
+@media (max-width: 550px) {
+  .account-card {
+    padding: 25px 18px;
+  }
+
+  .account-info-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+
+.account-password-title {
+  margin: 10px 0 20px;
+  font-size: 20px;
+  color: #161719;
+  text-align: right;
+}
+
+.account-password-form {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.account-password-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b4641;
+  margin-top: 8px;
+}
+
+.account-password-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #ddd4c9;
+  border-radius: 9px;
+  background: #fff;
+  color: #161719;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.account-password-form input:focus {
+  border-color: #992B2B;
+  box-shadow: 0 0 0 3px rgba(153, 43, 43, 0.1);
+}
+
+.account-change-password {
+  width: 100%;
+  padding: 13px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #161719;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.account-change-password:hover {
+  background: #333538;
+}
+
+.account-change-password:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.account-success {
+  padding: 12px;
+  border-radius: 8px;
+  background: #e8f5ec;
+  color: #247342;
+  font-size: 14px;
+}

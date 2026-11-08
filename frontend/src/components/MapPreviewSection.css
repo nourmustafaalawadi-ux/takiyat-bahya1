@@ -1,0 +1,227 @@
+
+/* =================================
+   MAP SECTION - TAKIYAT BAHYA
+================================= */
+
+.map-section {
+  padding: 85px 8%;
+  background-color: #FFFFFF;
+  direction: rtl;
+}
+
+.map-section-heading {
+  max-width: 650px;
+  margin-bottom: 42px;
+}
+
+.map-section-label {
+  display: inline-block;
+  color: #992B2B;
+  background: rgba(153, 43, 43, 0.08);
+  padding: 9px 17px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.map-section-heading h2 {
+  color: #161719;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.map-section-heading p {
+  color: #77716B;
+  font-size: 16px;
+  line-height: 2;
+  margin: 0;
+}
+
+.map-section-content {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 25px;
+  align-items: stretch;
+}
+
+/* قائمة المناطق */
+
+.map-areas {
+  padding: 28px;
+  background: #F8F4EE;
+  border: 1px solid #EAE1D7;
+  border-radius: 18px;
+}
+
+.map-areas h3 {
+  color: #161719;
+  font-size: 21px;
+  margin: 0 0 8px;
+}
+
+.map-areas > p {
+  color: #77716B;
+  font-size: 14px;
+  margin: 0 0 23px;
+}
+
+.map-area-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-area-item {
+  width: 100%;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 15px;
+  background: #FFFFFF;
+  border: 1px solid #EAE1D7;
+  border-radius: 12px;
+  color: #292522;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.map-area-item.active {
+  background: rgba(153, 43, 43, 0.08);
+  border-color: #992B2B;
+  color: #992B2B;
+  box-shadow: 0 4px 14px rgba(153, 43, 43, 0.10);
+}
+
+.map-area-item.active .map-area-icon {
+  background: #992B2B;
+  color: #FFFFFF;
+}
+
+.map-area-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(153, 43, 43, 0.09);
+  border-radius: 10px;
+  color: #992B2B;
+  font-size: 24px;
+}
+
+.map-area-arrow {
+  margin-right: auto;
+  color: #992B2B;
+  font-size: 19px;
+}
+
+/* مساحة الخريطة */
+
+.map-placeholder {
+  min-height: 440px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #EAE1D7;
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(153, 43, 43, 0.07),
+      transparent 55%
+    ),
+    #F8F4EE;
+}
+
+.map-placeholder-icon {
+  width: 85px;
+  height: 85px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+  color: #992B2B;
+  border: 1px solid #EAE1D7;
+  border-radius: 24px;
+  font-size: 48px;
+  box-shadow: 0 10px 30px rgba(22, 23, 25, 0.07);
+  margin-bottom: 22px;
+}
+
+.map-placeholder h3 {
+  color: #161719;
+  font-size: 23px;
+  margin: 0 0 10px;
+}
+
+.map-placeholder p {
+  max-width: 390px;
+  color: #77716B;
+  font-size: 14px;
+  line-height: 2;
+  margin: 0 0 20px;
+}
+
+.map-coming-soon {
+  color: #992B2B;
+  background: rgba(153, 43, 43, 0.08);
+  padding: 9px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* الشاشات المتوسطة */
+
+@media (max-width: 900px) {
+  .map-section {
+    padding: 65px 6%;
+  }
+
+  .map-section-content {
+    grid-template-columns: 1fr;
+  }
+
+  .map-placeholder {
+    min-height: 350px;
+  }
+}
+
+/* الهواتف */
+
+@media (max-width: 600px) {
+  .map-section {
+    padding: 50px 5%;
+  }
+
+  .map-section-heading {
+    margin-bottom: 28px;
+  }
+
+  .map-section-heading h2 {
+    font-size: 29px;
+  }
+
+  .map-section-heading p {
+    font-size: 14px;
+  }
+
+  .map-areas {
+    padding: 20px;
+  }
+
+  .map-placeholder {
+    min-height: 290px;
+    padding: 25px 18px;
+  }
+}

@@ -1,0 +1,223 @@
+
+/* =================================
+   CONTACT SECTION - TAKIYAT BAHYA
+================================= */
+
+.contact-section {
+  padding: 75px 8%;
+  background: #F8F4EE;
+  direction: rtl;
+}
+
+.contact-content {
+  max-width: 850px;
+  margin: auto;
+  padding: 55px 35px;
+  text-align: center;
+  background: #161719;
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-content::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  top: -130px;
+  right: -80px;
+  border-radius: 50%;
+  background: rgba(153, 43, 43, 0.25);
+}
+
+.contact-label {
+  display: inline-block;
+  position: relative;
+  color: #E2A862;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.contact-content h2 {
+  position: relative;
+  color: #FFFFFF;
+  font-size: clamp(30px, 4vw, 43px);
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 0 0 15px;
+}
+
+.contact-content h2 span {
+  color: #E2A862;
+}
+
+.contact-content > p {
+  position: relative;
+  max-width: 570px;
+  margin: 0 auto 28px;
+  color: #D0CECA;
+  font-size: 15px;
+  line-height: 2;
+}
+
+.contact-button {
+  position: relative;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 13px 25px;
+  background: #992B2B;
+  color: #FFFFFF;
+  border: 1px solid #992B2B;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.contact-button:hover {
+  background: #7E2020;
+  transform: translateY(-3px);
+}
+
+.contact-button span {
+  font-size: 20px;
+}
+
+/* =================================
+   FOOTER
+================================= */
+
+.site-footer {
+  padding: 35px 8% 20px;
+  background: #161719;
+  color: #FFFFFF;
+  direction: rtl;
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.footer-brand img {
+  width: 55px;
+  height: 55px;
+  padding: 3px;
+  object-fit: contain;
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+
+.footer-brand h3 {
+  color: #FFFFFF;
+  font-size: 19px;
+  margin: 0 0 5px;
+}
+
+.footer-brand p {
+  color: #B8B5B0;
+  font-size: 12px;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 25px;
+}
+
+.footer-links a {
+  color: #D0CECA;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #E2A862;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding-top: 20px;
+}
+
+.footer-bottom p,
+.footer-bottom span {
+  color: #A9A6A1;
+  font-size: 12px;
+  margin: 0;
+}
+
+.footer-bottom span {
+  color: #E2A862;
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 750px) {
+  .contact-section {
+    padding: 50px 5%;
+  }
+
+  .contact-content {
+    padding: 45px 22px;
+  }
+
+  .contact-content > p {
+    font-size: 14px;
+  }
+
+  .site-footer {
+    padding: 30px 5% 20px;
+  }
+
+  .footer-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    gap: 18px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contact-button {
+    width: 100%;
+  }
+}

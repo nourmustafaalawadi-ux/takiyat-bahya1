@@ -1,0 +1,533 @@
+
+/* الهوية العامة للوحة الإدارة */
+.admin-dashboard {
+  min-height: 100vh;
+  padding: 35px;
+  background: #F8F4EE;
+  color: #161719;
+  font-family: 'Cairo', Tahoma, sans-serif;
+  direction: rtl;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  padding: 28px;
+  background: #161719;
+  color: #fff;
+  border-radius: 18px;
+}
+
+.admin-header h1 {
+  margin: 0 0 8px;
+  font-size: 27px;
+}
+
+.admin-header p {
+  margin: 0;
+  color: #dedbd6;
+}
+
+.admin-logout {
+  padding: 11px 22px;
+  border: 1px solid #e2a862;
+  border-radius: 9px;
+  background: transparent;
+  color: #e2a862;
+  font: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.admin-logout:hover {
+  background: #e2a862;
+  color: #161719;
+}
+
+.admin-intro {
+  margin: 28px 0 20px;
+}
+
+.admin-intro h2,
+.admin-section-title {
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.admin-intro p {
+  color: #77716b;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 25px 0 38px;
+}
+
+.admin-stat {
+  padding: 23px;
+  background: #fff;
+  border: 1px solid #eee7dd;
+  border-radius: 15px;
+  box-shadow: 0 5px 18px rgba(22, 23, 25, 0.04);
+}
+
+.admin-stat span {
+  display: block;
+  margin-bottom: 12px;
+  color: #77716b;
+  font-size: 14px;
+}
+
+.admin-stat strong {
+  font-size: 30px;
+  color: #161719;
+}
+
+.admin-stat.pending {
+  border-top: 4px solid #e2a862;
+}
+
+.admin-stat.verified {
+  border-top: 4px solid #3b9b69;
+}
+
+.admin-stat.rejected {
+  border-top: 4px solid #992b2b;
+}
+
+.admin-stat.total {
+  border-top: 4px solid #161719;
+}
+
+.admin-kitchens {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.admin-kitchen-card {
+  padding: 23px;
+  background: #fff;
+  border: 1px solid #eee7dd;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(22, 23, 25, 0.04);
+}
+
+.admin-kitchen-card h3 {
+  margin: 0 0 15px;
+  font-size: 19px;
+}
+
+.admin-kitchen-card p {
+  margin: 10px 0;
+  color: #625d57;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.admin-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #fff3dc;
+  color: #98651b;
+  font-size: 13px;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.admin-actions button {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 9px;
+  font: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.admin-approve {
+  background: #287c50;
+  color: #fff;
+}
+
+.admin-reject {
+  background: #992b2b;
+  color: #fff;
+}
+
+.admin-actions button:hover {
+  filter: brightness(0.9);
+}
+
+.admin-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.admin-message {
+  padding: 13px 16px;
+  margin: 15px 0;
+  border-radius: 9px;
+  background: #e5f4e9;
+  color: #287c50;
+}
+
+.admin-error {
+  padding: 13px 16px;
+  margin: 15px 0;
+  border-radius: 9px;
+  background: #fbe9e9;
+  color: #992b2b;
+}
+
+.admin-empty {
+  padding: 35px;
+  background: #fff;
+  border-radius: 14px;
+  color: #77716b;
+  text-align: center;
+}
+
+.admin-loading {
+  padding: 60px 20px;
+  color: #161719;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-kitchens {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .admin-dashboard {
+    padding: 16px;
+  }
+
+  .admin-header {
+    padding: 20px;
+  }
+
+  .admin-header h1 {
+    font-size: 21px;
+  }
+
+  .admin-stats {
+    gap: 10px;
+  }
+
+  .admin-stat {
+    padding: 16px;
+  }
+
+  .admin-stat strong {
+    font-size: 24px;
+  }
+
+  .admin-kitchen-card {
+    padding: 17px;
+  }
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.admin-logo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #E2A862;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+@media (max-width: 550px) {
+  .admin-logo {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-account {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid #E2A862;
+  border-radius: 9px;
+  color: #fff;
+  text-decoration: none;
+  font: inherit;
+  transition: 0.2s;
+}
+
+.admin-account:hover {
+  background: #E2A862;
+  color: #161719;
+}
+
+@media (max-width: 650px) {
+  .admin-header {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .admin-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+
+/* نافذة تعديل بيانات التكية */
+.admin-edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(22, 23, 25, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.admin-edit-form {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: #F8F4EE;
+  padding: 28px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.admin-edit-form h2 {
+  color: #161719;
+  margin: 0 0 15px;
+  text-align: center;
+}
+
+.admin-edit-form label {
+  color: #393532;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.admin-edit-form input,
+.admin-edit-form select,
+.admin-edit-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #ddd4c9;
+  border-radius: 9px;
+  background: #fff;
+  color: #161719;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.admin-edit-form input:focus,
+.admin-edit-form select:focus,
+.admin-edit-form textarea:focus {
+  border-color: #992B2B;
+  box-shadow: 0 0 0 3px rgba(153, 43, 43, 0.1);
+}
+
+.admin-edit-form textarea {
+  resize: vertical;
+}
+
+.admin-edit-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.admin-edit-buttons button {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.admin-edit-buttons button:first-child {
+  background: #992B2B;
+  color: #fff;
+}
+
+.admin-edit-buttons button:first-child:hover {
+  background: #7d2020;
+}
+
+.admin-edit-buttons button:last-child {
+  background: #ded8d0;
+  color: #161719;
+}
+
+.admin-edit-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-edit {
+  padding: 10px 16px;
+  border: 1px solid #992B2B;
+  border-radius: 8px;
+  background: transparent;
+  color: #992B2B;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.admin-edit:hover {
+  background: #992B2B;
+  color: #fff;
+}
+
+@media (max-width: 550px) {
+  .admin-edit-form {
+    padding: 20px;
+  }
+
+  .admin-edit-buttons {
+    flex-direction: column;
+  }
+}
+
+/* زر إيقاف وإعادة تفعيل التكية */
+.admin-toggle {
+  background-color: #f3e6d5;
+  color: #795323;
+  border: 1px solid #e2a862;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-toggle:hover {
+  background-color: #e2a862;
+  color: #161719;
+}
+
+.admin-toggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* تبويبات التكيات الحالية والأرشيف */
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.admin-tab {
+  padding: 12px 22px;
+  border: 1px solid #ddd4c9;
+  border-radius: 10px;
+  background: #fff;
+  color: #625d57;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-tab:hover {
+  border-color: #992B2B;
+  color: #992B2B;
+}
+
+.admin-tab.active {
+  background: #161719;
+  color: #fff;
+  border-color: #161719;
+}
+
+.admin-list-title {
+  margin-top: 25px;
+  font-size: 19px;
+  color: #161719;
+}
+
+/* زر نقل التكية إلى الأرشيف */
+.admin-archive {
+  background: #f8e9e7;
+  color: #992b2b;
+  border: 1px solid #992b2b !important;
+}
+
+/* زر استعادة التكية */
+.admin-restore {
+  background: #e5f4e9;
+  color: #287c50;
+  border: 1px solid #287c50 !important;
+}
+
+.admin-archive:hover {
+  background: #992b2b;
+  color: #fff;
+}
+
+.admin-restore:hover {
+  background: #287c50;
+  color: #fff;
+}
+
+/* تحسين عرض التبويبات على الهاتف */
+@media (max-width: 550px) {
+  .admin-tabs {
+    flex-direction: column;
+  }
+
+  .admin-tab {
+    width: 100%;
+  }
+}

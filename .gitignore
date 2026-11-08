@@ -1,0 +1,12 @@
+# بيانات الاتصال السرية
+backend/config/db.php
+.env
+.env.*
+
+# ملفات Node
+frontend/node_modules/
+frontend/dist/
+
+# ملفات النظام
+.DS_Store
+Thumbs.db
