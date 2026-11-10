@@ -13,16 +13,17 @@ import Account from './pages/account/Account.jsx';
 function App() {
   const params = new URLSearchParams(window.location.search);
   const page = params.get('page');
+  const path = window.location.pathname.replace(/\/+$/, '');
 
-  if (page === 'login') {
+  if (page === 'login' || path === '/login') {
     return <Login />;
   }
 
-  if (page === 'admin') {
+  if (page === 'admin' || path === '/admin') {
     return <AdminDashboard />;
   }
 
-  if (page === 'account') {
+  if (page === 'account' || path === '/account') {
     return <Account />;
   }
 
