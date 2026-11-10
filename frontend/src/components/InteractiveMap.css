@@ -36,3 +36,58 @@
     min-height: 350px;
   }
 }
+
+
+/* تنسيقات النوافذ المنبثقة للتكيات */
+.kitchen-popup .leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  direction: rtl;
+  font-family: 'Cairo', 'Tahoma', sans-serif;
+}
+
+.map-popup-card {
+  padding: 6px 4px;
+  text-align: right;
+  direction: rtl;
+}
+
+.map-popup-card h4 {
+  color: #161719;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.map-popup-area {
+  display: inline-block;
+  background: #F4EFEB;
+  color: #6E6760;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+.map-popup-address,
+.map-popup-desc,
+.map-popup-phone {
+  font-size: 12px;
+  color: #514A44;
+  line-height: 1.6;
+  margin: 4px 0;
+}
+
+.map-popup-phone a {
+  color: #992B2B;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.map-popup-footer {
+  margin-top: 10px;
+  border-top: 1px solid #EAE1D7;
+  padding-top: 8px;
+}

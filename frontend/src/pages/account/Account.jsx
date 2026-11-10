@@ -1,12 +1,11 @@
-
 import { useEffect, useState } from 'react';
 import './Account.css';
 import logo from '../../assets/bahya-logo.png';
-
-const API = 'http://localhost/takiyat-bahya/backend/api';
+import { API_BASE_URL as API } from '../../config/api.js';
 
 export default function Account() {
   const [user, setUser] = useState(null);
+  const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -16,6 +15,14 @@ export default function Account() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  function getSecureHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    if (csrfToken) {
+      headers['X-CSRF-Token'] = csrfToken;
+    }
+    return headers;
+  }
 
   useEffect(() => {
     async function loadAccount() {
@@ -32,6 +39,9 @@ export default function Account() {
         }
 
         setUser(result.user);
+        if (result.csrf_token) {
+          setCsrfToken(result.csrf_token);
+        }
       } catch {
         setError('تعذر تحميل بيانات الحساب.');
       } finally {
@@ -52,6 +62,7 @@ export default function Account() {
       const response = await fetch(`${API}/logout.php`, {
         method: 'POST',
         credentials: 'include',
+        headers: getSecureHeaders(),
       });
 
       const result = await response.json();
@@ -62,7 +73,7 @@ export default function Account() {
 
       window.location.href = '/?page=login';
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'حدث خطأ أثناء تسجيل الخروج.');
       setLoggingOut(false);
     }
   }
@@ -78,6 +89,11 @@ export default function Account() {
       return;
     }
 
+    if (newPassword.length > 128) {
+      setError('كلمة المرور طويلة جدًا.');
+      return;
+    }
+
     if (newPassword !== confirmPassword) {
       setError('كلمتا المرور الجديدتان غير متطابقتين.');
       return;
@@ -89,9 +105,7 @@ export default function Account() {
       const response = await fetch(`${API}/change-password.php`, {
         method: 'POST',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getSecureHeaders(),
         body: JSON.stringify({
           current_password: currentPassword,
           new_password: newPassword,
@@ -127,7 +141,6 @@ export default function Account() {
   return (
     <main className="account-page" dir="rtl">
       <section className="account-card">
-
         <img
           src={logo}
           alt="شعار تكية بهية"
@@ -169,7 +182,6 @@ export default function Account() {
         <h2 className="account-password-title">تغيير كلمة المرور</h2>
 
         <form className="account-password-form" onSubmit={handleChangePassword}>
-
           <label htmlFor="currentPassword">كلمة المرور الحالية</label>
           <input
             id="currentPassword"
@@ -188,6 +200,7 @@ export default function Account() {
             onChange={(e) => setNewPassword(e.target.value)}
             autoComplete="new-password"
             minLength={8}
+            maxLength={128}
             required
           />
 
@@ -199,6 +212,7 @@ export default function Account() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             autoComplete="new-password"
             minLength={8}
+            maxLength={128}
             required
           />
 

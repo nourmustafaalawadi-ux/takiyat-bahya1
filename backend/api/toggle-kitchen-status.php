@@ -1,16 +1,6 @@
 <?php
 
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
-
+require_once __DIR__ . '/../config/cors.php';
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/auth.php';
 
@@ -23,15 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-requireAdmin();
+requireAdmin($pdo);
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$kitchenId = filter_var(
-    $data['kitchen_id'] ?? null,
-    FILTER_VALIDATE_INT
-);
-
+$kitchenId = filter_var($data['kitchen_id'] ?? null, FILTER_VALIDATE_INT);
 $isActive = $data['is_active'] ?? null;
 
 if (!$kitchenId || !in_array($isActive, [0, 1, '0', '1'], true)) {
@@ -44,10 +30,7 @@ if (!$kitchenId || !in_array($isActive, [0, 1, '0', '1'], true)) {
 }
 
 try {
-    $check = $pdo->prepare(
-        "SELECT id FROM kitchens WHERE id = :id LIMIT 1"
-    );
-
+    $check = $pdo->prepare("SELECT id FROM kitchens WHERE id = :id LIMIT 1");
     $check->execute(['id' => $kitchenId]);
 
     if (!$check->fetch()) {
@@ -59,11 +42,11 @@ try {
         exit;
     }
 
-    $update = $pdo->prepare(
-        "UPDATE kitchens
-         SET is_active = :is_active
-         WHERE id = :id"
-    );
+    $update = $pdo->prepare("
+        UPDATE kitchens
+        SET is_active = :is_active
+        WHERE id = :id
+    ");
 
     $update->execute([
         'is_active' => (int) $isActive,
@@ -77,7 +60,8 @@ try {
             : 'تم إيقاف التكية مؤقتًا بنجاح.'
     ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
+} catch (Throwable $e) {
+    error_log('[API Error: toggle-kitchen-status.php] ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,

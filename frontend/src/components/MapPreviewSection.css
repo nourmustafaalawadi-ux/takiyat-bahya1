@@ -225,3 +225,50 @@
     padding: 25px 18px;
   }
 }
+
+
+/* =================================
+   MAP CONTAINER STYLES
+================================= */
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-container-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+}
+
+.map-container-heading h3 {
+  color: #161719;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.map-active-badge {
+  background: rgba(153, 43, 43, 0.09);
+  color: #992B2B;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.map-note {
+  color: #77716B;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 4px 0 0;
+  padding: 4px;
+}
+
+.map-error {
+  color: #C62828;
+  font-size: 13px;
+  padding: 8px;
+}

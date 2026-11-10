@@ -1,16 +1,13 @@
-
 <?php
 
-header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Content-Type: application/json; charset=utf-8');
-
+require_once __DIR__ . '/../config/cors.php';
 require_once __DIR__ . '/../config/db.php';
 
 try {
-
     $sql = "
         SELECT
             k.id,
+            k.area_id,
             k.name,
             k.description,
             k.address,
@@ -19,11 +16,8 @@ try {
             k.phone,
             k.status,
             a.name AS area_name
-
         FROM kitchens k
-
         INNER JOIN areas a ON k.area_id = a.id
-
         WHERE
             k.is_active = 1
             AND k.verification_status = 'verified'
@@ -33,7 +27,6 @@ try {
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-
     $kitchens = $stmt->fetchAll();
 
     echo json_encode([
@@ -41,12 +34,9 @@ try {
         'data' => $kitchens
     ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
-
-    error_log($e->getMessage());
-
+} catch (Throwable $e) {
+    error_log('[API Error: kitchens.php] ' . $e->getMessage());
     http_response_code(500);
-
     echo json_encode([
         'success' => false,
         'message' => 'حدث خطأ أثناء جلب بيانات التكيات.'

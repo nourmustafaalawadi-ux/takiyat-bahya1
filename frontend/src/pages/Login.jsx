@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import './Login.css';
 import logo from '../assets/bahya-logo.png';
+import { API_BASE_URL } from '../config/api.js';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -15,15 +15,12 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        'http://localhost/takiyat-bahya/backend/api/login.php',
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/login.php`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
 
       const result = await response.json();
 
@@ -31,9 +28,11 @@ export default function Login() {
         throw new Error(result.message || 'تعذر تسجيل الدخول.');
       }
 
-      // الانتقال إلى لوحة الإدارة بعد نجاح تسجيل الدخول
-      window.location.href = '/?page=admin';
+      if (result.csrf_token) {
+        sessionStorage.setItem('csrf_token', result.csrf_token);
+      }
 
+      window.location.href = '/?page=admin';
     } catch (error) {
       setMessage(error.message);
       setLoading(false);
@@ -43,40 +42,37 @@ export default function Login() {
   return (
     <main className="login-page" dir="rtl">
       <div className="login-card">
-
         <div className="login-logo">
           <img src={logo} alt="شعار تكية بهية" />
         </div>
 
         <p className="login-subtitle">لوحة إدارة المنصة</p>
-
         <div className="login-divider"></div>
 
-        <h2>مرحباً بعودتكِ</h2>
-
+        <h2>مرحباً بك</h2>
         <p className="login-description">
-          سجّلي الدخول للوصول إلى لوحة الإدارة
+          سجّل الدخول للوصول إلى لوحة الإدارة
         </p>
 
         <form onSubmit={handleLogin}>
-          <label>اسم المستخدم</label>
-
+          <label htmlFor="login-username">اسم المستخدم</label>
           <input
+            id="login-username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="أدخلي اسم المستخدم"
+            placeholder="أدخل اسم المستخدم"
             autoComplete="username"
             required
           />
 
-          <label>كلمة المرور</label>
-
+          <label htmlFor="login-password">كلمة المرور</label>
           <input
+            id="login-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="أدخلي كلمة المرور"
+            placeholder="أدخل كلمة المرور"
             autoComplete="current-password"
             required
           />
@@ -92,10 +88,13 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="login-footer">
-          تكية بهية — الخير يجمعنا
-        </p>
+        <div className="login-actions" style={{ marginTop: '16px', textAlign: 'center' }}>
+          <a href="/" style={{ color: '#77716B', textDecoration: 'none', fontSize: '13px' }}>
+            ← العودة إلى الصفحة الرئيسية
+          </a>
+        </div>
 
+        <p className="login-footer">تكية بهية — الخير يجمعنا</p>
       </div>
     </main>
   );

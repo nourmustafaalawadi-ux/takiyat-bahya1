@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
 import './Navbar.css';
+import bahyaLogo from '../assets/bahya-logo.png';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,11 +10,11 @@ export default function Navbar() {
   return (
     <header className="navbar" dir="rtl">
       <a className="navbar-brand" href="#home" onClick={closeMenu}>
-       <img
-          src="/src/assets/bahya-logo.png"
+        <img
+          src={bahyaLogo}
           alt="شعار تكية بهية"
           className="navbar-logo"
-        /> 
+        />
         <span className="navbar-brand-text">
           <strong>تكية بهية</strong>
           <small>منصة تجمع الخير في غزة</small>
@@ -26,6 +26,7 @@ export default function Navbar() {
         <a href="#map" onClick={closeMenu}>خريطة التكيات</a>
         <a href="#directory" onClick={closeMenu}>دليل التكيات</a>
         <a href="#about" onClick={closeMenu}>من نحن</a>
+        <a href="#support-request" onClick={closeMenu}>طلب دعم تكية</a>
       </nav>
 
       <a className="navbar-contact" href="#contact">تواصل معنا</a>

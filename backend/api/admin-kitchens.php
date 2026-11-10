@@ -1,16 +1,8 @@
-
 <?php
 
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
+require_once __DIR__ . '/../config/cors.php';
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/auth.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405);
@@ -21,14 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-require_once __DIR__ . '/../config/auth.php';
-require_once __DIR__ . '/../config/db.php';
-
-// لا يسمح إلا للمسؤول المسجل بالدخول
-requireAdmin();
+requireAdmin($pdo);
 
 try {
-
     $sql = "
         SELECT
             k.id,
@@ -44,17 +31,13 @@ try {
             k.is_active,
             k.is_archived,
             a.name AS area_name
-
         FROM kitchens k
-
         INNER JOIN areas a ON k.area_id = a.id
-
         ORDER BY k.id DESC
     ";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-
     $kitchens = $stmt->fetchAll();
 
     echo json_encode([
@@ -62,14 +45,11 @@ try {
         'data' => $kitchens
     ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
-
-    error_log($e->getMessage());
-
+} catch (Throwable $e) {
+    error_log('[API Error: admin-kitchens.php] ' . $e->getMessage());
     http_response_code(500);
-
     echo json_encode([
         'success' => false,
-        'message' => 'حدث خطأ أثناء جلب بيانات التكيات.'
+        'message' => 'حدث خطأ أثناء جلب بيانات التكيات للإدارة.'
     ], JSON_UNESCAPED_UNICODE);
 }

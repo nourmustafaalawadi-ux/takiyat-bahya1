@@ -1,19 +1,8 @@
-
 <?php
 
+require_once __DIR__ . '/../config/cors.php';
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/auth.php';
-
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: http://localhost:5173');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit;
-}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -24,26 +13,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// التحقق من صلاحيات المسؤول
-requireAdmin();
+requireAdmin($pdo);
 
-// قراءة البيانات
 $data = json_decode(file_get_contents('php://input'), true);
 
-$kitchenId = filter_var(
-    $data['kitchen_id'] ?? null,
-    FILTER_VALIDATE_INT
-);
-
+$kitchenId = filter_var($data['kitchen_id'] ?? null, FILTER_VALIDATE_INT);
 $name = trim($data['name'] ?? '');
-$areaId = filter_var(
-    $data['area_id'] ?? null,
-    FILTER_VALIDATE_INT
-);
+$areaId = filter_var($data['area_id'] ?? null, FILTER_VALIDATE_INT);
 $address = trim($data['address'] ?? '');
 $phone = trim($data['phone'] ?? '');
 $description = trim($data['description'] ?? '');
-$status = $data['status'] ?? '';
+$status = $data['status'] ?? 'unknown';
+
+$latitude = isset($data['latitude']) && $data['latitude'] !== '' && $data['latitude'] !== null
+    ? filter_var($data['latitude'], FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE)
+    : null;
+
+$longitude = isset($data['longitude']) && $data['longitude'] !== '' && $data['longitude'] !== null
+    ? filter_var($data['longitude'], FILTER_VALIDATE_FLOAT, FILTER_NULL_ON_FAILURE)
+    : null;
 
 $allowedStatuses = ['open', 'closed', 'paused', 'unknown'];
 
@@ -65,24 +53,20 @@ if (!in_array($status, $allowedStatuses, true)) {
     exit;
 }
 
-if (strlen($name) > 255 || strlen($address) > 255 || strlen($phone) > 30) {
+if (strlen($name) > 150 || strlen($address) > 255 || strlen($phone) > 30 || mb_strlen($description, 'UTF-8') > 2000) {
     http_response_code(422);
     echo json_encode([
         'success' => false,
-        'message' => 'بعض البيانات أطول من الحد المسموح.'
+        'message' => 'بعض البيانات أطول من الحد المسموح به.'
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 try {
-    // التأكد من وجود المنطقة
-    $areaCheck = $pdo->prepare(
-        "SELECT id FROM areas WHERE id = :id LIMIT 1"
-    );
-
+    $areaCheck = $pdo->prepare("SELECT id FROM areas WHERE id = :id LIMIT 1");
     $areaCheck->execute(['id' => $areaId]);
 
-    if (!$areaCheck->fetch(PDO::FETCH_ASSOC)) {
+    if (!$areaCheck->fetch()) {
         http_response_code(422);
         echo json_encode([
             'success' => false,
@@ -91,14 +75,10 @@ try {
         exit;
     }
 
-    // التأكد من وجود التكية
-    $kitchenCheck = $pdo->prepare(
-        "SELECT id FROM kitchens WHERE id = :id LIMIT 1"
-    );
-
+    $kitchenCheck = $pdo->prepare("SELECT id FROM kitchens WHERE id = :id LIMIT 1");
     $kitchenCheck->execute(['id' => $kitchenId]);
 
-    if (!$kitchenCheck->fetch(PDO::FETCH_ASSOC)) {
+    if (!$kitchenCheck->fetch()) {
         http_response_code(404);
         echo json_encode([
             'success' => false,
@@ -107,24 +87,27 @@ try {
         exit;
     }
 
-    // تحديث البيانات دون تغيير حالة التوثيق
-    $update = $pdo->prepare(
-        "UPDATE kitchens
-         SET name = :name,
-             area_id = :area_id,
-             address = :address,
-             phone = :phone,
-             description = :description,
-             status = :status
-         WHERE id = :id"
-    );
+    $update = $pdo->prepare("
+        UPDATE kitchens
+        SET name = :name,
+            area_id = :area_id,
+            address = :address,
+            phone = :phone,
+            description = :description,
+            latitude = :latitude,
+            longitude = :longitude,
+            status = :status
+        WHERE id = :id
+    ");
 
     $update->execute([
         'name' => $name,
         'area_id' => $areaId,
         'address' => $address,
-        'phone' => $phone,
-        'description' => $description,
+        'phone' => $phone !== '' ? $phone : null,
+        'description' => $description !== '' ? $description : null,
+        'latitude' => $latitude,
+        'longitude' => $longitude,
         'status' => $status,
         'id' => $kitchenId
     ]);
@@ -134,11 +117,11 @@ try {
         'message' => 'تم تحديث بيانات التكية بنجاح.'
     ], JSON_UNESCAPED_UNICODE);
 
-} catch (PDOException $e) {
+} catch (Throwable $e) {
+    error_log('[API Error: update-kitchen.php] ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'حدث خطأ أثناء تحديث بيانات التكية.'
     ], JSON_UNESCAPED_UNICODE);
 }
-
