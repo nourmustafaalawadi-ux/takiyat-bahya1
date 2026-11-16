@@ -353,6 +353,39 @@ export default function AdminDashboard() {
     }
   }
 
+  // حذف التكية نهائياً من قاعدة البيانات
+  async function deleteKitchenPermanent(kitchen) {
+    const confirmed = window.confirm(
+      `تحذير: هل أنتِ متأكدة من حذف "${kitchen.name}" نهائياً من قاعدة البيانات؟\n\nهذا الإجراء لا يمكن التراجع عنه.`
+    );
+    if (!confirmed) return;
+
+    setUpdatingId(kitchen.id);
+    setMessage('');
+    setError('');
+
+    try {
+      const response = await fetch(`${API}/delete-kitchen.php`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: getSecureHeaders(),
+        body: JSON.stringify({ kitchen_id: kitchen.id }),
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'تعذر حذف التكية.');
+      }
+
+      setMessage(result.message);
+      await loadKitchens();
+    } catch (err) {
+      setError(err.message || 'حدث خطأ أثناء حذف التكية.');
+    } finally {
+      setUpdatingId(null);
+    }
+  }
+
   // تحديث حالة طلب دعم
   async function handleUpdateSupportStatus(requestId, newStatus) {
     try {
@@ -744,7 +777,7 @@ export default function AdminDashboard() {
                         </button>
                       </div>
                     ) : (
-                      <div className="admin-card-actions">
+                      <div className="admin-card-actions" style={{ display: 'flex', gap: '10px' }}>
                         <button
                           type="button"
                           className="admin-restore-btn"
@@ -752,6 +785,14 @@ export default function AdminDashboard() {
                           onClick={() => restoreKitchen(kitchen)}
                         >
                           استعادة من الأرشيف
+                        </button>
+                        <button
+                          type="button"
+                          className="admin-delete-btn"
+                          disabled={updatingId !== null}
+                          onClick={() => deleteKitchenPermanent(kitchen)}
+                        >
+                          حذف نهائي
                         </button>
                       </div>
                     )}

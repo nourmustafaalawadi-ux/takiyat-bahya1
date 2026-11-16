@@ -355,8 +355,11 @@
 .admin-archive-btn { background: #FFF3E0; color: #C2410C; margin-right: auto; }
 .admin-archive-btn:hover { background: #FFE0B2; }
 
-.admin-restore-btn { background: #E8F5E9; color: #2E7D32; width: 100%; }
+.admin-restore-btn { background: #E8F5E9; color: #2E7D32; flex: 1; }
 .admin-restore-btn:hover { background: #C8E6C9; }
+
+.admin-delete-btn { background: #FFEBEE; color: #C62828; flex: 1; }
+.admin-delete-btn:hover { background: #FFCDD2; }
 
 /* قائمة طلبات الدعم */
 .admin-support-list {
